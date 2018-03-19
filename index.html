@@ -3,34 +3,114 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Wex Wedding</title>
-  <link href='https://fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'>
+  <title>Tokyo Blockchain</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
   <style>
     html {
       background: #fff;
       box-sizing: border-box;
-      font-family:'helvetica neue';
-      font-size: 20px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.25rem;
       font-weight: 200;
     }
     body {
       margin: 0;
-      text-transform: uppercase;
-      font-family: 'Amatic SC', cursive;
+      font-size: 1rem !important
     }
-    *, *:before, *:after {
-      box-sizing: inherit;
+    .wrapper {
+      height: 100vh;
+      width: 100vw;
+    }
+    .image {
+      text-align: center;
+      margin-top: -100px;
+    }
+    .content {
+      margin: 20px 0;
+    }
+    form {
+      margin: 30px 0;
+    }
+
+    .form-control-lg {
+      font-size: 1rem;
+    }
+
+    .btn-primary {
+      background-color: #56CBD0;
+      border-color: #56CBD0;
+      font-size: 1rem;
+    }
+
+    .btn-primary:hover {
+      background-color: #56CBD0;
+      border-color: #56CBD0;
+      opacity: 0.7;
+    }
+
+    @media all and (max-width: 500px) {
+      .content {
+        width: 80%;
+      }
     }
   </style>
-  <button id="submit">Subscribe to our mailing list</button>
+  <div class="wrapper">
+  <div class="image">
+    <img height="auto" width="300" src="./tokyo-blockchain.png" alt="tokyo-blockchain">
+  </div>
+
+  <div class="col-md-10 col-lg-8 col-xl-7 mx-auto content">
+    We are a group of driven individuals passionate about blockchain.
+    Our mission is to involve traditional businesses and
+    professionals in the world of blockchain and cryptocurrency,
+    to find new applications that solve real world problems,
+    and in the process, help build a bridge between Japan and the rest of the world.
+
+    <form>
+      <div class="form-row">
+        <div class="col-12 col-md-9 mb-2 mb-md-0">
+          <input type="email" id="input" class="form-control form-control-lg" placeholder="Enter your email...">
+        </div>
+        <div class="col-12 col-md-3">
+          <button type="button" id="submit" class="btn btn-block btn-lg btn-primary" data-toggle="modal" data-target="#exampleModal">Sign up!</button>
+        </div>
+      </div>
+    </form>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Registered Successfully!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Thanks for registering for our mailing list! Stay tuned for more news about blockchain and upcoming events.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
 
 
 <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script>
   // Initialize Firebase
   const submit = document.getElementById('submit');
+  const input = document.getElementById('input');
 
   var config = {
     apiKey: "AIzaSyDJWsJMvh4xKGXwJ9R_gFhkVMDQQuhKhfU",
@@ -44,12 +124,14 @@
 
   var database = firebase.database();
 
-  const writeUserData = function(email, name) {
-    database.ref('users/' + name).set({ email: email });
-    console.log('clicked');
+  function writeUserData() {
+    const value = input.value;
+    firebase.database().ref('users/').push({
+      email: value,
+    });
   }
 
-  submit.addEventListener('click', writeUserData('test2@gmail.com', ''));
+  submit.addEventListener('click', writeUserData);
 
 </script>
 
