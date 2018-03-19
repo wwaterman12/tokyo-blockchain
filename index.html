@@ -24,14 +24,14 @@
       box-sizing: inherit;
     }
   </style>
-  <div id="loader-wrapper">
-    testing 1234
-  </div>
+  <button id="submit">Subscribe to our mailing list</button>
 
 
 <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
 <script>
   // Initialize Firebase
+  const submit = document.getElementById('submit');
+
   var config = {
     apiKey: "AIzaSyDJWsJMvh4xKGXwJ9R_gFhkVMDQQuhKhfU",
     authDomain: "tokyo-blockchain.firebaseapp.com",
@@ -41,6 +41,16 @@
     messagingSenderId: "1047148059632"
   };
   firebase.initializeApp(config);
+
+  var database = firebase.database();
+
+  const writeUserData = function(email, name) {
+    database.ref('users/' + name).set({ email: email });
+    console.log('clicked');
+  }
+
+  submit.addEventListener('click', writeUserData('test2@gmail.com', ''));
+
 </script>
 
 </body>
